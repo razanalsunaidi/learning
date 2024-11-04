@@ -1,4 +1,4 @@
-# Learning Journey App
+# Learning Journey App 🔥
 
 The **Learning Journey** app is designed to help users track their learning goals and habits. It features a splash screen, a main content view for inputting learning objectives, and a goal editing screen. The application utilizes SwiftUI and the MVVM (Model-View-ViewModel) design pattern for better separation of concerns.
 
