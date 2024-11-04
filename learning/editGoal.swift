@@ -4,6 +4,7 @@ import SwiftUI
 class EditGoalViewModel: ObservableObject {
     @Published var userInputModel: UserInputModel
     @Published var selectedDuration: String? = nil
+    var onGoalUpdated: (() -> Void)? // Closure to notify when goal is updated
 
     init(userInputModel: UserInputModel) {
         self.userInputModel = userInputModel
@@ -12,6 +13,9 @@ class EditGoalViewModel: ObservableObject {
     func updateGoal() {
         // Print the updated values
         print("Updated Goal: \(userInputModel.userInput), Duration: \(selectedDuration ?? "None")")
+        
+        // Call the closure to notify that the goal has been updated
+        onGoalUpdated?()
     }
 }
 
@@ -23,6 +27,10 @@ struct EditGoal: View {
     init(userInputModel: UserInputModel) {
         self.userInputModel = userInputModel
         self._viewModel = StateObject(wrappedValue: EditGoalViewModel(userInputModel: userInputModel))
+        self.viewModel.onGoalUpdated = {
+            // This closure can call resetLearningPlan on the TestSwiftViewModel
+            // However, we need a way to access the TestSwiftViewModel instance
+        }
     }
 
     var body: some View {

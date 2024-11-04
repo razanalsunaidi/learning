@@ -58,6 +58,14 @@ class TestSwiftViewModel: ObservableObject {
             buttonsEnabled = false
         }
     }
+
+    func resetLearningPlan() {
+        countL = 0
+        countF = 0
+        isLearnedTodayClicked = false
+        isFreezeDayClicked = false
+        buttonsEnabled = true
+    }
 }
 
 struct TestSwift: View {
@@ -82,12 +90,16 @@ struct TestSwift: View {
 
                         HStack {
                             Text("Learning \(userInputModel.userInput)")
-                                .font(.largeTitle)
+                                .font(.system(size: calculateFontSize(for: userInputModel.userInput)))
                                 .bold()
                                 .foregroundColor(.white)
                                 .padding(.leading, -10)
 
-                            NavigationLink(destination: EditGoal(userInputModel: userInputModel)) {
+                            NavigationLink(destination: EditGoal(userInputModel: userInputModel)
+                                            .environmentObject(viewModel)
+                                            .onAppear {
+                                                viewModel.resetLearningPlan() // Reset when going back
+                                            }) {
                                 Text("🔥")
                                     .font(.system(size: 20))
                                     .padding(5)
@@ -247,6 +259,20 @@ struct TestSwift: View {
             }
         }
         .accentColor(.orange) // Set back button color to orange
+    }
+
+    // Function to calculate font size based on input length
+    private func calculateFontSize(for text: String) -> CGFloat {
+        let baseSize: CGFloat = 24 // Base font size
+        let maxTextLength: CGFloat = 30 // Maximum length before scaling down
+        let textLength = CGFloat(text.count)
+        
+        // Scale the font down based on the length of the text
+        if textLength > maxTextLength {
+            return max(baseSize * (maxTextLength / textLength), 10) // Ensure a minimum font size
+        }
+        
+        return baseSize // Return base size if within limit
     }
 }
 
