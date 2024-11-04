@@ -11,7 +11,7 @@ The **Learning Journey** app is designed to help users track their learning goal
   - [Main View and Splash Screen](#main-view-and-splash-screen)
   - [Learning Tracker View](#learning-tracker-view)
   - [Goal Editing View](#goal-editing-view)
--[The Interfaces Of The App](#The-Interfaces-Of-The-App)
+  - [The Interfaces Of The App](#The-Interfaces-Of-The-App)
 
 ## Features
 
